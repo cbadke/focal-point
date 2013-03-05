@@ -41,7 +41,7 @@ results.xml
 *crunchsolution*
 
 #NuGet
-*/packages/
+packages/
 !nuget.exe
 
 #Ignore Error logs

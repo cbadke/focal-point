@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace focal_point.Properties
+namespace WpfApplication1.Properties
 {
 
 

@@ -1,9 +1,10 @@
-﻿<Window x:Class="WpfApplication1.MainWindow"
+﻿<Window x:Class="FocalPoint.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="FocalPoint" Height="217.164" Width="525" WindowStyle="ToolWindow" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid Height="187" VerticalAlignment="Bottom">
         <ProgressBar Height="25" Margin="10,0,10,10" VerticalAlignment="Bottom" IsTabStop="False"/>
         <Grid Margin="205,10,312,151" HorizontalAlignment="Center" Width="0"/>
+        <Button x:Name="StartSession" Content="GO!" HorizontalAlignment="Left" Margin="206,72,0,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

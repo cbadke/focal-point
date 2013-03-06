@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace WpfApplication1
+namespace FocalPoint
 {
     /// <summary>
     /// Interaction logic for App.xaml

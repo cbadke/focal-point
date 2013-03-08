@@ -20,30 +20,32 @@ namespace FocalPoint
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IViewFor<PomodoroViewModel>
+    public partial class MainWindow : Window, IViewFor<SessionViewModel>
     {
         public MainWindow()
         {
-            ViewModel = new PomodoroViewModel();
+            ViewModel = new SessionViewModel();
             InitializeComponent();
 
             this.BindCommand(ViewModel, vm => vm.StartSession);
+            //this.Bind(ViewModel, vm => vm.Duration);
+
             InitializeComponent();
         }
 
-        public PomodoroViewModel ViewModel
+        public SessionViewModel ViewModel
         {
-            get { return (PomodoroViewModel)GetValue(ViewModelProperty); }
+            get { return (SessionViewModel)GetValue(ViewModelProperty); }
             set { SetValue(ViewModelProperty, value); }
         }
 
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register("ViewModel", typeof(PomodoroViewModel),typeof(MainWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("ViewModel", typeof(SessionViewModel),typeof(MainWindow), new PropertyMetadata(null));
 
         object IViewFor.ViewModel
         {
             get { return ViewModel; }
-            set { ViewModel = (PomodoroViewModel)value; }
+            set { ViewModel = (SessionViewModel)value; }
         }
 
     }

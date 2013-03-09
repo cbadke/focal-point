@@ -7,13 +7,32 @@ using Microsoft.Lync.Model;
 
 namespace lync2013_plugin
 {
-    public class StatusUpdater
+    public class LyncStatusUpdater
     {
         private LyncClient _LyncClient = LyncClient.GetClient();
-        public void StartSession()
+        public void StartSession(DateTime utcEndTime)
         {
-            PublishPersonalNoteAndFreeAvailability("I'm away!", ContactAvailability.DoNotDisturb);
+            SetAwayMessage(utcEndTime);
         }
+
+        public void UpdateSession(DateTime utcEndTime)
+        {
+            SetAwayMessage(utcEndTime);
+        }
+
+        public void StopSession()
+        {
+            PublishPersonalNoteAvailability("", ContactAvailability.Free);
+        }
+
+        private void SetAwayMessage(DateTime utcEndTime)
+        {
+            var minutesRemaining = (int) Math.Ceiling((utcEndTime - DateTime.UtcNow).TotalMinutes);
+            PublishPersonalNoteAvailability(
+                 String.Format("Pomodoro: {0} minutes left", minutesRemaining),
+                 ContactAvailability.DoNotDisturb);
+        }
+
         private void SendPublishRequest(
            Dictionary<PublishableContactInformationType, object> publishData,
             string publishId)
@@ -44,7 +63,7 @@ namespace lync2013_plugin
                 ((Self)asyncState[0]).EndPublishContactInformation(ar);
             }
         }
-        private void PublishPersonalNoteAndFreeAvailability(string newNote, ContactAvailability availability)
+        private void PublishPersonalNoteAvailability(string newNote, ContactAvailability availability)
         {
             //Each element of this array must contain a valid enumeration. If null array elements 
             //are passed, an ArgumentException is raised.

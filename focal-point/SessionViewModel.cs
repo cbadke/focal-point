@@ -23,12 +23,6 @@ namespace FocalPoint
             get { return _Duration; }
             set { this.RaiseAndSetIfChanged(value); }
         }
-        private DateTime _EndTime;
-        public DateTime EndTime
-        {
-            get { return _EndTime; }
-            set { this.RaiseAndSetIfChanged(value); }
-        }
 
         public ReactiveCommand StartSession { get; protected set; }
 
@@ -39,10 +33,10 @@ namespace FocalPoint
             StartSession.Subscribe(_ =>
                 {
                     this.Running = true;
-                    this.EndTime = DateTime.Now.AddMinutes(_Duration);
+                    var endTime = DateTime.UtcNow.AddMinutes(_Duration);
 
-                    var l = new lync2013_plugin.StatusUpdater();
-                    l.StartSession();
+                    var l = new lync2013_plugin.LyncStatusUpdater();
+                    l.StartSession(endTime);
                 });
         }
     }

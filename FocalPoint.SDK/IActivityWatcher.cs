@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace focal_point
+namespace FocalPoint.SDK
 {
     public interface IActivityWatcher
     {

@@ -35,7 +35,7 @@ namespace FocalPoint
                     this.Running = true;
                     var endTime = DateTime.UtcNow.AddMinutes(_Duration);
 
-                    var l = new lync2013_plugin.LyncStatusUpdater();
+                    var l = new FocalPoint.Lync2013Plugin.LyncStatusUpdater();
                     l.StartSession(endTime);
                 });
         }

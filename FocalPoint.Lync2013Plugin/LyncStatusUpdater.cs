@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using Microsoft.Lync.Model;
 
-namespace lync2013_plugin
+namespace FocalPoint.Lync2013Plugin
 {
     public class LyncStatusUpdater
     {

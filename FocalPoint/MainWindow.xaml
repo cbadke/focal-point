@@ -5,6 +5,6 @@
         Title="FocalPoint" WindowStyle="ToolWindow" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Height="130" Width="200">
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
         <Button x:Name="StartSession" Content="GO!" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Margin="10,10,10,5"/>
-        <ProgressBar Height="25" VerticalAlignment="Top" IsTabStop="False" Margin="10,5"/>
+        <ProgressBar x:Name="PercentComplete" Height="25" VerticalAlignment="Top" IsTabStop="False" Margin="10,5"/>
     </StackPanel>
 </Window>

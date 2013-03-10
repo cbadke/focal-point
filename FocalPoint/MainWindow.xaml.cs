@@ -28,7 +28,7 @@ namespace FocalPoint
             InitializeComponent();
 
             this.BindCommand(ViewModel, vm => vm.StartSession);
-            //this.Bind(ViewModel, vm => vm.Duration);
+            this.Bind(ViewModel, vm => vm.PercentComplete);
 
             InitializeComponent();
         }
@@ -47,6 +47,5 @@ namespace FocalPoint
             get { return ViewModel; }
             set { ViewModel = (SessionViewModel)value; }
         }
-
     }
 }

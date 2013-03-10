@@ -11,7 +11,7 @@ namespace FocalPoint
 {
     public class SessionViewModel : ReactiveObject
     {
-        private int _Duration = 3;
+        private int _Duration = 25;
         public int Duration
         {
             get { return _Duration; }
@@ -29,7 +29,7 @@ namespace FocalPoint
         public int PercentComplete
         {
             get { return _PercentComplete; }
-            set { this.RaiseAndSetIfChanged(value); }
+            protected set { this.RaiseAndSetIfChanged(value); }
         }
 
         public ReactiveAsyncCommand StartSession { get; protected set; }

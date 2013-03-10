@@ -2,8 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        Title="FocalPoint" WindowStyle="ToolWindow" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Height="130" Width="200">
-    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+        Title="FocalPoint" WindowStyle="ToolWindow" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Height="149" Width="200">
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <xctk:IntegerUpDown x:Name="Duration" Maximum="60" Minimum="1" Width="75"></xctk:IntegerUpDown>
+            <Label Content="minutes"></Label>
+        </StackPanel>
         <Button x:Name="StartSession" Content="GO!" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Margin="10,10,10,5"/>
         <ProgressBar x:Name="PercentComplete" Height="25" VerticalAlignment="Top" IsTabStop="False" Margin="10,5"/>
     </StackPanel>

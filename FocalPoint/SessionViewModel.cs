@@ -9,6 +9,26 @@ using System.Threading.Tasks;
 
 namespace FocalPoint
 {
+    class Session
+    {
+        public DateTime EndTime { get; set; }
+        public int Duration { get; set; }
+
+        public int PercentComplete
+        {
+            get
+            {
+                var currentTime = DateTime.UtcNow;
+                if (currentTime > EndTime) return 100;
+
+                var sessionLength = new TimeSpan(0, Duration, 0);
+                var timeRemaining = (EndTime - currentTime).TotalMilliseconds;
+
+                return (int)(100 * (sessionLength.TotalMilliseconds - timeRemaining) / sessionLength.TotalMilliseconds);
+            }
+        }
+    }
+
     public class SessionViewModel : ReactiveObject
     {
         private int _Duration = 25;
@@ -19,10 +39,10 @@ namespace FocalPoint
         }
 
         private bool _Running = false;
-        private bool Running
+        public bool Running
         {
             get { return _Running; }
-            set { this.RaiseAndSetIfChanged(value); }
+            protected set { this.RaiseAndSetIfChanged(value); }
         }
 
         private int _PercentComplete = 0;
@@ -32,49 +52,59 @@ namespace FocalPoint
             protected set { this.RaiseAndSetIfChanged(value); }
         }
 
-        public ReactiveAsyncCommand StartSession { get; protected set; }
+        public ReactiveCommand StartSession { get; set; }
         protected ReactiveCommand UpdateProgress { get; set; }
+        public ReactiveCommand EndSession { get; set; }
 
         public SessionViewModel()
         {
             var canStartSession = this.WhenAny(vm => vm.Running, running => !running.Value);
-            StartSession = new ReactiveAsyncCommand(canStartSession);
-            StartSession.RegisterAsyncAction(RunSession);
-
-            UpdateProgress = new ReactiveCommand();
-            UpdateProgress.Subscribe(percent =>
+            StartSession = new ReactiveCommand(canStartSession);
+            StartSession.Subscribe(_ =>
                 {
-                    PercentComplete = (int)percent;
+                    var session = new Session
+                        {
+                            Duration = _Duration,
+                            EndTime = DateTime.UtcNow.AddMinutes(_Duration)
+                        };
+
+                    Running = true;
+                    var l = new Lync2013Plugin.LyncStatusUpdater();
+                    l.StartSession(session.EndTime);
+
+                    IDisposable cancelToken = null;
+                    cancelToken = Observable.Interval(TimeSpan.FromMilliseconds(1000)).Subscribe(__ =>
+                         {
+                             UpdateProgress.Execute(session); 
+
+                             if (session.PercentComplete == 100)
+                             {
+                                 cancelToken.Dispose();
+                                 EndSession.Execute(null);
+                             }
+                         });
                 });
 
-        }
+            UpdateProgress = new ReactiveCommand();
+            UpdateProgress.Subscribe(obj =>
+                {
+                    var session = (Session) obj;
 
-        private void RunSession(object _)
-        {
-            var l = new Lync2013Plugin.LyncStatusUpdater();
+                    PercentComplete = session.PercentComplete;
 
+                    var l = new Lync2013Plugin.LyncStatusUpdater();
+                    l.UpdateSession(session.EndTime);
+                });
 
-            var sessionLength = new TimeSpan(0, _Duration, 0);
-            var sessionEndTime = DateTime.UtcNow.AddMinutes(_Duration);
+            EndSession = new ReactiveCommand();
+            EndSession.Subscribe(_ =>
+                {
+                    Running = false;
+                    PercentComplete = 0;
 
-            Running = true;
-            l.StartSession(sessionEndTime);
-
-            while (sessionEndTime > DateTime.UtcNow)
-            {
-                var timeRemaining = (sessionEndTime - DateTime.UtcNow).TotalMilliseconds;
-
-                var percentComplete = (int)(100*(sessionLength.TotalMilliseconds - timeRemaining)/sessionLength.TotalMilliseconds);
-                UpdateProgress.Execute(percentComplete);
-
-                l.UpdateSession(sessionEndTime);
-
-                System.Threading.Thread.Sleep(1000);
-            }
-
-            UpdateProgress.Execute(0);
-            l.StopSession();
-            Running = false;
+                    var l = new Lync2013Plugin.LyncStatusUpdater();
+                    l.StopSession();
+                });
         }
     }
 }

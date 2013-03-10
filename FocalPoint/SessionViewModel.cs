@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using System.Reactive.Linq;
+using ReactiveUI;
 using ReactiveUI.Xaml;
 using System;
 using System.Collections.Generic;
@@ -17,27 +18,39 @@ namespace FocalPoint
             set { this.RaiseAndSetIfChanged(value); }
         }
 
-        private int _Duration = 25;
+        private int _Duration = 1;
         public int Duration
         {
             get { return _Duration; }
             set { this.RaiseAndSetIfChanged(value); }
         }
 
-        public ReactiveCommand StartSession { get; protected set; }
+        public ReactiveAsyncCommand StartSession { get; protected set; }
 
         public SessionViewModel()
         {
             var canStartSession = this.WhenAny(vm => vm.Running, running => !running.Value);
-            StartSession = new ReactiveCommand(canStartSession);
-            StartSession.Subscribe(_ =>
-                {
-                    this.Running = true;
-                    var endTime = DateTime.UtcNow.AddMinutes(_Duration);
+            StartSession = new ReactiveAsyncCommand(canStartSession);
+            StartSession.RegisterAsyncAction(RunSession);
+        }
 
-                    var l = new FocalPoint.Lync2013Plugin.LyncStatusUpdater();
-                    l.StartSession(endTime);
-                });
+        private void RunSession(object _)
+        {
+            Running = true;
+            var endTime = DateTime.UtcNow.AddMinutes(_Duration);
+
+            var l = new Lync2013Plugin.LyncStatusUpdater();
+            l.StartSession(endTime);
+
+            var timeRemaining = endTime - DateTime.UtcNow;
+            while (timeRemaining.TotalMilliseconds > 0)
+            {
+                Observable.Interval(TimeSpan.FromMilliseconds(1000));
+                timeRemaining = endTime - DateTime.UtcNow;
+            }
+
+            l.StopSession();
+            Running = false;
         }
     }
 }

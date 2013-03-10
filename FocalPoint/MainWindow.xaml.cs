@@ -30,6 +30,7 @@ namespace FocalPoint
             this.BindCommand(ViewModel, vm => vm.StartSession);
             this.Bind(ViewModel, vm => vm.PercentComplete);
             this.Bind(ViewModel, vm => vm.Duration, form => form.Duration.Value);
+            this.Bind(ViewModel, vm => vm.Running, form => form.Duration.IsReadOnly);
 
             InitializeComponent();
         }

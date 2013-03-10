@@ -11,7 +11,7 @@ namespace FocalPoint
 {
     public class SessionViewModel : ReactiveObject
     {
-        private int _Duration = 1;
+        private int _Duration = 3;
         public int Duration
         {
             get { return _Duration; }
@@ -67,7 +67,7 @@ namespace FocalPoint
                 var percentComplete = (int)(100*(sessionLength.TotalMilliseconds - timeRemaining)/sessionLength.TotalMilliseconds);
                 UpdateProgress.Execute(percentComplete);
 
-                //l.UpdateSession(sessionEndTime);
+                l.UpdateSession(sessionEndTime);
 
                 System.Threading.Thread.Sleep(1000);
             }

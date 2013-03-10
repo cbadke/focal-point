@@ -7,6 +7,7 @@ namespace FocalPoint.Lync2013Plugin
 {
     public class LyncStatusUpdater
     {
+        private int _minutesRemaining = Int32.MinValue;
         private LyncClient _LyncClient = LyncClient.GetClient();
         public void StartSession(DateTime utcEndTime)
         {
@@ -20,15 +21,22 @@ namespace FocalPoint.Lync2013Plugin
 
         public void StopSession()
         {
+            _minutesRemaining = Int32.MinValue;
             PublishPersonalNoteAvailability("", ContactAvailability.Free);
         }
 
         private void SetAwayMessage(DateTime utcEndTime)
         {
-            var minutesRemaining = (int) Math.Ceiling((utcEndTime - DateTime.UtcNow).TotalMinutes);
-            PublishPersonalNoteAvailability(
-                 String.Format("Pomodoro: {0} minutes left", minutesRemaining),
-                 ContactAvailability.DoNotDisturb);
+            var remaining = (int) Math.Ceiling((utcEndTime - DateTime.UtcNow).TotalMinutes);
+
+            if (remaining != _minutesRemaining)
+            {
+                _minutesRemaining = remaining;
+
+                PublishPersonalNoteAvailability(
+                     String.Format("Pomodoro: {0} minutes left", _minutesRemaining),
+                     ContactAvailability.DoNotDisturb);
+            }
         }
 
         private void SendPublishRequest(

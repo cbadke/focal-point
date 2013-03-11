@@ -9,7 +9,19 @@ namespace FocalPoint.Lync2013Plugin
     public class LyncStatusUpdater : ISessionWatcher
     {
         private int _minutesRemaining = Int32.MinValue;
-        private LyncClient _LyncClient = LyncClient.GetClient();
+
+        private LyncClient _client = null;
+        private LyncClient Client
+        {
+            get
+            {
+                if (_client == null)
+                {
+                    _client = LyncClient.GetClient();
+                }
+                return _client;
+            }
+        }
 
         public string Name { get { return "Lync 2013 Plugin"; } }
 
@@ -48,17 +60,17 @@ namespace FocalPoint.Lync2013Plugin
             string publishId)
         {
             var publishState = (object)publishId;
-            object[] publishAsyncState = { _LyncClient.Self, publishState };
+            object[] publishAsyncState = { Client.Self, publishState };
             try
             {
-                _LyncClient.Self.BeginPublishContactInformation(
+                Client.Self.BeginPublishContactInformation(
                     publishData,
                     PublicationCallback,
                     publishAsyncState);
             }
             catch (COMException ce)
             {
-                //MessageBox.Show("publish COM exception: " + ce.ErrorCode.ToString());
+                _client = null;
             }
             catch (ArgumentException ae)
             {

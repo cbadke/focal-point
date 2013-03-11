@@ -93,6 +93,7 @@ namespace FocalPoint
 
         private void Exit_Click(object sender, EventArgs e)
         {
+            ViewModel.EndSession.Execute(null);
             taskBarIcon.Visible = false;
             this.Close();
         }

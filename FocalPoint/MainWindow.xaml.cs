@@ -24,6 +24,8 @@ namespace FocalPoint
     /// </summary>
     public partial class MainWindow : Window, IViewFor<SessionViewModel>
     {
+        System.Windows.Forms.NotifyIcon taskBarIcon ;
+
         public MainWindow()
         {
             ViewModel = new SessionViewModel();
@@ -41,13 +43,13 @@ namespace FocalPoint
 
             InitializeComponent();
 
-            var ni = new System.Windows.Forms.NotifyIcon
+            taskBarIcon = new System.Windows.Forms.NotifyIcon
                 {
                     Icon = System.Drawing.Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location),
                     Visible = true,
                     ContextMenu = CreateTaskBarContextMenu()
                 };
-            ni.DoubleClick += Show_Click;
+            taskBarIcon.DoubleClick += Show_Click;
         }
 
         public SessionViewModel ViewModel
@@ -65,38 +67,51 @@ namespace FocalPoint
             set { ViewModel = (SessionViewModel)value; }
         }
 
-        private void Hide_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-        }
-
-        private void Show_Click(object sender, EventArgs e)
-        {
-            this.Show();
-            this.WindowState = WindowState.Normal;
-        }
-
-        private void Exit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
 
+        private void Hide_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            taskBarIcon.ContextMenu.MenuItems["Show"].Visible = true;
+            taskBarIcon.ContextMenu.MenuItems["Hide"].Visible = false;
+        }
+
+        private void Show_Click(object sender, EventArgs e)
+        {
+            this.Show();
+
+            taskBarIcon.ContextMenu.MenuItems["Show"].Visible = false;
+            taskBarIcon.ContextMenu.MenuItems["Hide"].Visible = true;
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            taskBarIcon.Visible = false;
+            this.Close();
+        }
+
         private System.Windows.Forms.ContextMenu CreateTaskBarContextMenu()
         {
             var context = new System.Windows.Forms.ContextMenu();
-            var openMenuItem = new System.Windows.Forms.MenuItem {Index = 0, Text = "&Open"};
-            openMenuItem.Click += Show_Click;
 
-            var exitMenuItem = new System.Windows.Forms.MenuItem {Index = 1, Text = "E&xit"};
+            var openMenuItem = new System.Windows.Forms.MenuItem {Index = 0, Text = "Show", Name = "Show"};
+            openMenuItem.Click += Show_Click;
+            openMenuItem.Visible = false;
+
+            var hideMenuItem = new System.Windows.Forms.MenuItem {Index = 1, Text = "Hide", Name = "Hide"};
+            hideMenuItem.Click += Hide_Click;
+
+            var separator = new System.Windows.Forms.MenuItem {Index = 2, Text = "-"};
+
+            var exitMenuItem = new System.Windows.Forms.MenuItem {Index = 3, Text = "Exit", Name = "Exit"};
             exitMenuItem.Click += Exit_Click;
 
-            context.MenuItems.AddRange(new [] {openMenuItem, exitMenuItem});
+            context.MenuItems.AddRange(new [] {openMenuItem, hideMenuItem, separator,exitMenuItem});
 
             return context;
         }

@@ -10,6 +10,25 @@ using System.Threading.Tasks;
 
 namespace FocalPoint
 {
+    public class Session : ISession
+    {
+        public DateTime EndTime { get; set; }
+        public int Duration { get; set; }
+
+        public double PercentComplete
+        {
+            get
+            {
+                var currentTime = DateTime.UtcNow;
+                if (currentTime > EndTime) return 100.0d;
+
+                var sessionLength = new TimeSpan(0, Duration, 0);
+                var timeRemaining = (EndTime - currentTime).TotalMilliseconds;
+
+                return 100.0d * (sessionLength.TotalMilliseconds - timeRemaining) / sessionLength.TotalMilliseconds;
+            }
+        }
+    }
 
     public class SessionViewModel : ReactiveObject
     {
@@ -27,8 +46,8 @@ namespace FocalPoint
             protected set { this.RaiseAndSetIfChanged(value); }
         }
 
-        private int _PercentComplete = 0;
-        public int PercentComplete
+        private double _PercentComplete = 0;
+        public double PercentComplete
         {
             get { return _PercentComplete; }
             protected set { this.RaiseAndSetIfChanged(value); }
@@ -38,10 +57,8 @@ namespace FocalPoint
         protected ReactiveCommand UpdateProgress { get; set; }
         public ReactiveCommand EndSession { get; set; }
 
-        public SessionViewModel()
+        public SessionViewModel(IEnumerable<ISessionWatcher> plugins)
         {
-            var l = new Lync2013Plugin.LyncStatusUpdater();
-
             IDisposable cancelToken = null;
 
             var canStartSession = this.WhenAny(vm => vm.Running, running => !running.Value);
@@ -55,13 +72,17 @@ namespace FocalPoint
                         };
 
                     Running = true;
-                    l.Start(session);
+
+                    foreach (var p in plugins)
+                    {
+                        p.Start(session);
+                    }
 
                     cancelToken = Observable.Interval(TimeSpan.FromMilliseconds(1000)).Subscribe(__ =>
                          {
                              UpdateProgress.Execute(session); 
 
-                             if (session.PercentComplete == 100)
+                             if (session.PercentComplete >= 100.0d)
                              {
                                  EndSession.Execute(null);
                              }
@@ -75,7 +96,10 @@ namespace FocalPoint
 
                     PercentComplete = session.PercentComplete;
 
-                    l.Update(session);
+                    foreach (var p in plugins)
+                    {
+                        p.Update(session);
+                    }
                 });
 
             var canEndSession = this.WhenAny(vm => vm.Running, running => running.Value);
@@ -91,7 +115,10 @@ namespace FocalPoint
                         cancelToken = null;
                     }
 
-                    l.Stop();
+                    foreach (var p in plugins)
+                    {
+                        p.Stop();
+                    }
                 });
         }
     }

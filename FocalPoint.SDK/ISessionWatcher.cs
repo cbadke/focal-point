@@ -4,8 +4,8 @@ namespace FocalPoint.SDK
 {
     public interface ISessionWatcher
     {
-        void Start(Session session);
-        void Update(Session session);
+        void Start(ISession session);
+        void Update(ISession session);
         void Stop();
     }
 }

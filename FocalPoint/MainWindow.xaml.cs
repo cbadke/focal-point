@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FocalPoint.Lync2013Plugin;
+using FocalPoint.SDK;
 using ReactiveUI;
 using ReactiveUI.Xaml;
 
@@ -24,11 +26,11 @@ namespace FocalPoint
     /// </summary>
     public partial class MainWindow : Window, IViewFor<SessionViewModel>
     {
-        System.Windows.Forms.NotifyIcon taskBarIcon ;
+        readonly System.Windows.Forms.NotifyIcon taskBarIcon ;
 
         public MainWindow()
         {
-            ViewModel = new SessionViewModel();
+            ViewModel = new SessionViewModel(new List<ISessionWatcher>{new LyncStatusUpdater()});
             InitializeComponent();
 
             this.BindCommand(ViewModel, vm => vm.StartSession);

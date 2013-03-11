@@ -1,25 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using FocalPoint.SDK;
 using Microsoft.Lync.Model;
 
 namespace FocalPoint.Lync2013Plugin
 {
-    public class LyncStatusUpdater
+    public class LyncStatusUpdater : ISessionWatcher
     {
         private int _minutesRemaining = Int32.MinValue;
         private LyncClient _LyncClient = LyncClient.GetClient();
-        public void StartSession(DateTime utcEndTime)
+
+        public void Start(Session session)
         {
-            SetAwayMessage(utcEndTime);
+            SetAwayMessage(session.EndTime);
         }
 
-        public void UpdateSession(DateTime utcEndTime)
+        public void Update(Session session)
         {
-            SetAwayMessage(utcEndTime);
+            SetAwayMessage(session.EndTime);
         }
 
-        public void StopSession()
+        public void Stop()
         {
             _minutesRemaining = Int32.MinValue;
             PublishPersonalNoteAvailability("", ContactAvailability.Free);

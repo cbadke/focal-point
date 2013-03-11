@@ -150,6 +150,10 @@
       <Project>{fe8361ad-9cd8-48c3-bcaa-970c510a66c2}</Project>
       <Name>FocalPoint.Lync2013Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FocalPoint.SDK\FocalPoint.SDK.csproj">
+      <Project>{FA253458-6CA2-46DE-B0D9-04C262804850}</Project>
+      <Name>FocalPoint.SDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\close.png" />

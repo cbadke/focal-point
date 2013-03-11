@@ -1,4 +1,5 @@
 ﻿using System.Reactive.Linq;
+using FocalPoint.SDK;
 using ReactiveUI;
 using ReactiveUI.Xaml;
 using System;
@@ -9,25 +10,6 @@ using System.Threading.Tasks;
 
 namespace FocalPoint
 {
-    class Session
-    {
-        public DateTime EndTime { get; set; }
-        public int Duration { get; set; }
-
-        public int PercentComplete
-        {
-            get
-            {
-                var currentTime = DateTime.UtcNow;
-                if (currentTime > EndTime) return 100;
-
-                var sessionLength = new TimeSpan(0, Duration, 0);
-                var timeRemaining = (EndTime - currentTime).TotalMilliseconds;
-
-                return (int)(100 * (sessionLength.TotalMilliseconds - timeRemaining) / sessionLength.TotalMilliseconds);
-            }
-        }
-    }
 
     public class SessionViewModel : ReactiveObject
     {
@@ -58,6 +40,8 @@ namespace FocalPoint
 
         public SessionViewModel()
         {
+            var l = new Lync2013Plugin.LyncStatusUpdater();
+
             IDisposable cancelToken = null;
 
             var canStartSession = this.WhenAny(vm => vm.Running, running => !running.Value);
@@ -71,8 +55,7 @@ namespace FocalPoint
                         };
 
                     Running = true;
-                    var l = new Lync2013Plugin.LyncStatusUpdater();
-                    l.StartSession(session.EndTime);
+                    l.Start(session);
 
                     cancelToken = Observable.Interval(TimeSpan.FromMilliseconds(1000)).Subscribe(__ =>
                          {
@@ -92,8 +75,7 @@ namespace FocalPoint
 
                     PercentComplete = session.PercentComplete;
 
-                    var l = new Lync2013Plugin.LyncStatusUpdater();
-                    l.UpdateSession(session.EndTime);
+                    l.Update(session);
                 });
 
             var canEndSession = this.WhenAny(vm => vm.Running, running => running.Value);
@@ -109,8 +91,7 @@ namespace FocalPoint
                         cancelToken = null;
                     }
 
-                    var l = new Lync2013Plugin.LyncStatusUpdater();
-                    l.StopSession();
+                    l.Stop();
                 });
         }
     }

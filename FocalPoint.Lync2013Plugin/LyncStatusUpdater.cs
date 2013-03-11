@@ -11,6 +11,8 @@ namespace FocalPoint.Lync2013Plugin
         private int _minutesRemaining = Int32.MinValue;
         private LyncClient _LyncClient = LyncClient.GetClient();
 
+        public string Name { get { return "Lync 2013 Plugin"; } }
+
         public void Start(ISession session)
         {
             SetAwayMessage(session.EndTime);

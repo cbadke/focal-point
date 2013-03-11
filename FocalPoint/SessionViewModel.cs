@@ -1,4 +1,5 @@
-﻿using System.Reactive.Linq;
+﻿using System.Diagnostics;
+using System.Reactive.Linq;
 using FocalPoint.SDK;
 using ReactiveUI;
 using ReactiveUI.Xaml;
@@ -59,6 +60,8 @@ namespace FocalPoint
 
         public SessionViewModel(IEnumerable<ISessionWatcher> plugins)
         {
+            Debug.Assert(plugins != null, "plugins != null");
+
             IDisposable cancelToken = null;
 
             var canStartSession = this.WhenAny(vm => vm.Running, running => !running.Value);
@@ -75,7 +78,11 @@ namespace FocalPoint
 
                     foreach (var p in plugins)
                     {
-                        p.Start(session);
+                        try
+                        {
+                            p.Start(session);
+                        }
+                        catch(Exception){}
                     }
 
                     cancelToken = Observable.Interval(TimeSpan.FromMilliseconds(1000)).Subscribe(__ =>
@@ -98,7 +105,13 @@ namespace FocalPoint
 
                     foreach (var p in plugins)
                     {
-                        p.Update(session);
+                        try
+                        {
+                            p.Update(session);
+                        }
+                        catch (Exception)
+                        {
+                        }
                     }
                 });
 
@@ -117,7 +130,13 @@ namespace FocalPoint
 
                     foreach (var p in plugins)
                     {
-                        p.Stop();
+                        try
+                        {
+                            p.Stop();
+                        }
+                        catch (Exception)
+                        {
+                        }
                     }
                 });
         }

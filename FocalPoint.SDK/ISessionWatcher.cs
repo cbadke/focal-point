@@ -7,5 +7,7 @@ namespace FocalPoint.SDK
         void Start(ISession session);
         void Update(ISession session);
         void Stop();
+
+        string Name { get; }
     }
 }

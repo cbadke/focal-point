@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,6 +39,16 @@ namespace FocalPoint
             this.Bind(ViewModel, vm => vm.Running, form => form.Duration.IsReadOnly);
 
             InitializeComponent();
+
+            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
+            ni.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location);
+            ni.Visible = true;
+            ni.DoubleClick +=
+                delegate(object sender, EventArgs args)
+                {
+                    this.Show();
+                    this.WindowState = WindowState.Normal;
+                };
         }
 
         public SessionViewModel ViewModel
@@ -57,7 +68,7 @@ namespace FocalPoint
 
         private void Hide_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

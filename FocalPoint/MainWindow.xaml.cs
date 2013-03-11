@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -40,15 +41,13 @@ namespace FocalPoint
 
             InitializeComponent();
 
-            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon();
-            ni.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location);
-            ni.Visible = true;
-            ni.DoubleClick +=
-                delegate(object sender, EventArgs args)
+            var ni = new System.Windows.Forms.NotifyIcon
                 {
-                    this.Show();
-                    this.WindowState = WindowState.Normal;
+                    Icon = System.Drawing.Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location),
+                    Visible = true,
+                    ContextMenu = CreateTaskBarContextMenu()
                 };
+            ni.DoubleClick += Show_Click;
         }
 
         public SessionViewModel ViewModel
@@ -71,10 +70,35 @@ namespace FocalPoint
             this.Hide();
         }
 
+        private void Show_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = WindowState.Normal;
+        }
+
+        private void Exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
+        }
+
+        private System.Windows.Forms.ContextMenu CreateTaskBarContextMenu()
+        {
+            var context = new System.Windows.Forms.ContextMenu();
+            var openMenuItem = new System.Windows.Forms.MenuItem {Index = 0, Text = "&Open"};
+            openMenuItem.Click += Show_Click;
+
+            var exitMenuItem = new System.Windows.Forms.MenuItem {Index = 1, Text = "E&xit"};
+            exitMenuItem.Click += Exit_Click;
+
+            context.MenuItems.AddRange(new [] {openMenuItem, exitMenuItem});
+
+            return context;
         }
     }
 }

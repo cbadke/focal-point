@@ -5,7 +5,7 @@
         Title="FocalPoint" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Height="90" Width="200" MouseDown="Window_MouseDown">
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
         <Grid HorizontalAlignment="Stretch">
-            <Button x:Name="Hide"  HorizontalAlignment="Right" Click="Hide_Click">
+            <Button x:Name="HideButton"  HorizontalAlignment="Right" Click="Hide_Click">
                 <Button.Template>
                     <ControlTemplate>
                         <Image Source="Images/close.png" Width="16" Height="16"/>

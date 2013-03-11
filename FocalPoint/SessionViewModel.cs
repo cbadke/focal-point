@@ -58,6 +58,8 @@ namespace FocalPoint
 
         public SessionViewModel()
         {
+            IDisposable cancelToken = null;
+
             var canStartSession = this.WhenAny(vm => vm.Running, running => !running.Value);
             StartSession = new ReactiveCommand(canStartSession);
             StartSession.Subscribe(_ =>
@@ -72,14 +74,12 @@ namespace FocalPoint
                     var l = new Lync2013Plugin.LyncStatusUpdater();
                     l.StartSession(session.EndTime);
 
-                    IDisposable cancelToken = null;
                     cancelToken = Observable.Interval(TimeSpan.FromMilliseconds(1000)).Subscribe(__ =>
                          {
                              UpdateProgress.Execute(session); 
 
                              if (session.PercentComplete == 100)
                              {
-                                 cancelToken.Dispose();
                                  EndSession.Execute(null);
                              }
                          });
@@ -96,11 +96,18 @@ namespace FocalPoint
                     l.UpdateSession(session.EndTime);
                 });
 
-            EndSession = new ReactiveCommand();
+            var canEndSession = this.WhenAny(vm => vm.Running, running => running.Value);
+            EndSession = new ReactiveCommand(canEndSession);
             EndSession.Subscribe(_ =>
                 {
                     Running = false;
                     PercentComplete = 0;
+
+                    if (cancelToken != null)
+                    {
+                        cancelToken.Dispose();
+                        cancelToken = null;
+                    }
 
                     var l = new Lync2013Plugin.LyncStatusUpdater();
                     l.StopSession();

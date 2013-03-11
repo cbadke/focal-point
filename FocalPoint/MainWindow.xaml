@@ -5,16 +5,37 @@
         Title="FocalPoint" WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" Height="90" Width="200">
     <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5">
         <Grid HorizontalAlignment="Stretch">
-            <Image x:Name="Close" HorizontalAlignment="Right" Source="Images/close.png" Width="16"/>
+            <Button x:Name="Hide"  HorizontalAlignment="Right" Click="Hide_Click">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Source="Images/close.png" Width="16" Height="16"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
         <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="5">
             <xctk:IntegerUpDown x:Name="Duration" Maximum="60" Minimum="1" Width="75"></xctk:IntegerUpDown>
             <Label Content="minutes"></Label>
         </StackPanel>
         <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-            <Button x:Name="StartSession" Content="GO!" HorizontalAlignment="Left" VerticalAlignment="Center" Width="25" Margin="5"/>
-            <Grid Width="155"  HorizontalAlignment="Stretch">
-                <ProgressBar x:Name="PercentComplete" Height="25" VerticalAlignment="Center" IsTabStop="False" HorizontalAlignment="Stretch"/>
+            <Grid Width="16" Height="16" VerticalAlignment="Center" Margin="5">
+                <Button x:Name="EndSession" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="Images/stop.png" Width="16" Height="16"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="StartSession" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Image Source="Images/play.png" Width="16" Height="16"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+            <Grid Width="162"  HorizontalAlignment="Stretch">
+                <ProgressBar x:Name="PercentComplete" VerticalAlignment="Stretch" IsTabStop="False" HorizontalAlignment="Stretch"/>
             </Grid>
         </StackPanel>
     </StackPanel>

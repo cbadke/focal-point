@@ -28,6 +28,11 @@ namespace FocalPoint
             InitializeComponent();
 
             this.BindCommand(ViewModel, vm => vm.StartSession);
+            this.OneWayBind(ViewModel, vm => vm.Running, form => form.StartSession.Visibility, running => running ? Visibility.Hidden : Visibility.Visible);
+
+            this.BindCommand(ViewModel, vm => vm.EndSession);
+            this.OneWayBind(ViewModel, vm => vm.Running, form => form.EndSession.Visibility, running => running ? Visibility.Visible : Visibility.Hidden);
+
             this.Bind(ViewModel, vm => vm.PercentComplete);
             this.Bind(ViewModel, vm => vm.Duration, form => form.Duration.Value);
             this.Bind(ViewModel, vm => vm.Running, form => form.Duration.IsReadOnly);
@@ -48,6 +53,11 @@ namespace FocalPoint
         {
             get { return ViewModel; }
             set { ViewModel = (SessionViewModel)value; }
+        }
+
+        private void Hide_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

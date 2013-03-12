@@ -31,6 +31,12 @@ namespace FocalPoint
         }
     }
 
+    public class Error
+    {
+        public string Title { get; set; }
+        public string Message { get; set; }
+    }
+
     public class SessionViewModel : ReactiveObject
     {
         private int _Duration = 25;
@@ -51,6 +57,13 @@ namespace FocalPoint
         public double PercentComplete
         {
             get { return _PercentComplete; }
+            protected set { this.RaiseAndSetIfChanged(value); }
+        }
+
+        private Error _ErrorMessage = null;
+        public Error ErrorMessage
+        {
+            get { return _ErrorMessage; }
             protected set { this.RaiseAndSetIfChanged(value); }
         }
 
@@ -76,14 +89,7 @@ namespace FocalPoint
 
                     Running = true;
 
-                    foreach (var p in plugins)
-                    {
-                        try
-                        {
-                            p.Start(session);
-                        }
-                        catch(Exception){}
-                    }
+                    NotifyPluginsOfStart(plugins, session);
 
                     cancelToken = Observable.Interval(TimeSpan.FromMilliseconds(1000)).Subscribe(__ =>
                          {
@@ -103,16 +109,7 @@ namespace FocalPoint
 
                     PercentComplete = session.PercentComplete;
 
-                    foreach (var p in plugins)
-                    {
-                        try
-                        {
-                            p.Update(session);
-                        }
-                        catch (Exception)
-                        {
-                        }
-                    }
+                    NotifyPluginsOfUpdate(plugins, session);
                 });
 
             var canEndSession = this.WhenAny(vm => vm.Running, running => running.Value);
@@ -128,17 +125,68 @@ namespace FocalPoint
                         cancelToken = null;
                     }
 
-                    foreach (var p in plugins)
-                    {
-                        try
-                        {
-                            p.Stop();
-                        }
-                        catch (Exception)
-                        {
-                        }
-                    }
+                    NotifyPluginsOfStop(plugins);
                 });
+        }
+
+        private void NotifyPluginsOfStart(IEnumerable<ISessionWatcher> plugins, ISession session)
+        {
+            foreach (var p in plugins)
+            {
+                try
+                {
+                    p.Start(session);
+                }
+                catch (PluginException ex)
+                {
+                    this.ErrorMessage = new Error { Title = p.Name, Message = ex.Message };
+                }
+                catch (NotImplementedException ex) { }
+                catch (Exception)
+                {
+                    this.ErrorMessage = new Error { Title = p.Name, Message = "An unknown error has occurred with plugin." };
+                }
+            }
+        }
+
+        private void NotifyPluginsOfStop(IEnumerable<ISessionWatcher> plugins)
+        {
+            foreach (var p in plugins)
+            {
+                try
+                {
+                    p.Stop();
+                }
+                catch (PluginException ex)
+                {
+                    this.ErrorMessage = new Error { Title = p.Name, Message = ex.Message };
+                }
+                catch (NotImplementedException ex) { }
+                catch (Exception)
+                {
+                    this.ErrorMessage = new Error { Title = p.Name, Message = "An unknown error has occurred with plugin." };
+                }
+            }
+        }
+
+        private void NotifyPluginsOfUpdate(IEnumerable<ISessionWatcher> plugins, ISession session)
+        {
+            foreach (var p in plugins)
+            {
+                try
+                {
+                    p.Update(session);
+                }
+                catch (PluginException ex)
+                {
+                    this.ErrorMessage = new Error { Title = p.Name, Message = ex.Message };
+                }
+                catch (NotImplementedException ex) { }
+                catch (Exception)
+                {
+                    this.ErrorMessage = new Error { Title = p.Name, Message = "An unknown error has occurred with plugin." };
+                }
+            }
         }
     }
 }

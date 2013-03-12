@@ -10,4 +10,6 @@ namespace FocalPoint.SDK
 
         string Name { get; }
     }
+
+    public class PluginException : Exception{}
 }

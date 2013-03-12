@@ -43,6 +43,8 @@ namespace FocalPoint
             this.Bind(ViewModel, vm => vm.Duration, form => form.Duration.Value);
             this.Bind(ViewModel, vm => vm.Running, form => form.Duration.IsReadOnly);
 
+            ViewModel.ObservableForProperty(new [] {"ErrorMessage"}).Subscribe(NotifyErrors);
+
             InitializeComponent();
 
             taskBarIcon = new System.Windows.Forms.NotifyIcon
@@ -52,6 +54,18 @@ namespace FocalPoint
                     ContextMenu = CreateTaskBarContextMenu()
                 };
             taskBarIcon.DoubleClick += Show_Click;
+        }
+
+        private void NotifyErrors(IObservedChange<SessionViewModel, object> obj)
+        {
+            var error = obj.Value as Error;
+
+            if (error != null)
+            {
+                taskBarIcon.BalloonTipTitle = error.Title;
+                taskBarIcon.BalloonTipText = error.Message;
+                taskBarIcon.ShowBalloonTip(5000);
+            }
         }
 
         public SessionViewModel ViewModel

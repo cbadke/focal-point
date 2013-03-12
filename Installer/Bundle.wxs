@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Bundle Name="Installer" Version="0.0.0.0" Manufacturer="FocalPoint" UpgradeCode="f4dc9eca-0176-4e01-816e-2ca336461b2f">
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+		<Chain>
+			<MsiPackage SourceFile="..\Redistributables\lyncRuntime.msi" />
+		</Chain>
+	</Bundle>
+</Wix>

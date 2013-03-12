@@ -11,5 +11,8 @@ namespace FocalPoint.SDK
         string Name { get; }
     }
 
-    public class PluginException : Exception{}
+    public class PluginException : Exception
+    {
+        public PluginException(string message) : base(message) {}
+    }
 }

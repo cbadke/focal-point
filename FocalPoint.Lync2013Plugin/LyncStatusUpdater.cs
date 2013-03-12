@@ -17,7 +17,14 @@ namespace FocalPoint.Lync2013Plugin
             {
                 if (_client == null)
                 {
-                    _client = LyncClient.GetClient();
+                    try
+                    {
+                        _client = LyncClient.GetClient();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new PluginException("Failed to connect to Lync. Please ensure your Lync app is running and signed in.");
+                    }
                 }
                 return _client;
             }
@@ -71,6 +78,8 @@ namespace FocalPoint.Lync2013Plugin
             catch (COMException ce)
             {
                 _client = null;
+
+                throw new PluginException("Failed to update Lync status. Will try again later.");
             }
             catch (ArgumentException ae)
             {

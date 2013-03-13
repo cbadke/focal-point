@@ -66,19 +66,17 @@
       <Name>FocalPoint.SDK</Name>
       <Project>{fa253458-6ca2-46de-b0d9-04c262804850}</Project>
       <Private>True</Private>
-      <DoNotHarvest>
-      </DoNotHarvest>
+      <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+      <RefTargetDir>APPINSTALLDIR</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\FocalPoint\FocalPoint.csproj">
       <Name>FocalPoint</Name>
       <Project>{5e4ebacd-299c-4231-8e81-27bb38e7de94}</Project>
       <Private>True</Private>
-      <DoNotHarvest>
-      </DoNotHarvest>
+      <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+      <RefTargetDir>APPINSTALLDIR</RefTargetDir>
     </ProjectReference>
     <ProjectReference Include="..\Lync2013Plugin\FocalPoint.Lync2013Plugin\FocalPoint.Lync2013Plugin.csproj">
       <Name>FocalPoint.Lync2013Plugin</Name>
@@ -86,7 +84,7 @@
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+      <RefTargetDir>APPINSTALLDIR</RefTargetDir>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

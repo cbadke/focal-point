@@ -18,8 +18,11 @@
 		</Directory>
     
 		<Feature Id="ProductFeature" Title="Installer" Level="1">
+        <ComponentGroupRef Id="Dependencies"/>
+        <ComponentGroupRef Id="SDK"/>
+        <ComponentGroupRef Id="LyncPlugin"/>
+        <ComponentGroupRef Id="Application"/>
     		<ComponentRef Id="FocalPoint.Shortcut" />
-       <ComponentGroupRef Id="ProductComponents"/>
 		</Feature>
   
     <PropertyRef Id="NETFRAMEWORK45"/>

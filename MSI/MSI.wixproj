@@ -16,12 +16,16 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <SuppressAllWarnings>False</SuppressAllWarnings>
+    <Pedantic>True</Pedantic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <SuppressAllWarnings>False</SuppressAllWarnings>
+    <Pedantic>True</Pedantic>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />

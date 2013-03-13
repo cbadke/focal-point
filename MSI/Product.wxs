@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Installer" Language="1033" Version="0.0.0.0" Manufacturer="FocalPoint" UpgradeCode="2a4f7735-5579-4126-aba3-d8bbdd27d015">
+	<Product Id="*" Name="FocalPoint" Language="1033" Version="0.0.0.0" Manufacturer="FocalPoint" UpgradeCode="2a4f7735-5579-4126-aba3-d8bbdd27d015">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />

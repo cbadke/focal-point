@@ -19,6 +19,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "MSI", "MSI\MSI.wixproj", "{
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{F4DC9ECA-0176-4E01-816E-2CA336461B2F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lync2013Plugin", "Lync2013Plugin", "{07F03EE7-1FFA-423F-964E-D6164F121319}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,5 +94,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FE8361AD-9CD8-48C3-BCAA-970C510A66C2} = {07F03EE7-1FFA-423F-964E-D6164F121319}
 	EndGlobalSection
 EndGlobal

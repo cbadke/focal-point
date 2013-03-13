@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint", "FocalPoint\Fo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint.Tests", "FocalPoint.Tests\FocalPoint.Tests.csproj", "{3F60C897-8C8B-4506-B5F3-5C6E90E73EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint.Lync2013Plugin", "FocalPoint.Lync2013Plugin\FocalPoint.Lync2013Plugin.csproj", "{FE8361AD-9CD8-48C3-BCAA-970C510A66C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint.Lync2013Plugin", "Lync2013Plugin\FocalPoint.Lync2013Plugin\FocalPoint.Lync2013Plugin.csproj", "{FE8361AD-9CD8-48C3-BCAA-970C510A66C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint.SDK", "FocalPoint.SDK\FocalPoint.SDK.csproj", "{FA253458-6CA2-46DE-B0D9-04C262804850}"
 EndProject

@@ -4,7 +4,7 @@
 		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
 
 		<Chain>
-			<MsiPackage SourceFile="..\Redistributables\lyncRuntime.msi" />
+			<MsiPackage SourceFile="..\Lync2013Plugin\Redistributables\lyncRuntime.msi" />
 		</Chain>
 	</Bundle>
 </Wix>

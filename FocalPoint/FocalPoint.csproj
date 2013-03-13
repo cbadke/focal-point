@@ -146,7 +146,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FocalPoint.Lync2013Plugin\FocalPoint.Lync2013Plugin.csproj">
+    <ProjectReference Include="..\Lync2013Plugin\FocalPoint.Lync2013Plugin\FocalPoint.Lync2013Plugin.csproj">
       <Project>{fe8361ad-9cd8-48c3-bcaa-970c510a66c2}</Project>
       <Name>FocalPoint.Lync2013Plugin</Name>
     </ProjectReference>

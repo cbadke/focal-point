@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="FocalPoint.Shortcut" Guid="83C72786-2903-4A50-9F2D-60B88011D0D9">
+        <Shortcut Id="ApplicationShortcut"
+                   Name="FocalPoint"
+                   Description="Pluggable task focus timer"
+                   Target="[APPINSTALLDIR]FocalPoint.exe"
+                   WorkingDirectory="APPINSTALLDIR"
+                  />
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+        <RegistryValue Root="HKCU" Key="Software\Microsoft\FocalPoint" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="APPINSTALLDIR">
+			<Component Id="ProductComponent" Guid="BDFB5B75-78FB-4F48-903C-6841F1B71189" KeyPath="yes">
+        <File Source="..\FocalPoint\bin\Release\FocalPoint.exe" Id="FocalPoint.exe"/>
+        <RemoveFolder Id="APPINSTALLDIR" On="uninstall"/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

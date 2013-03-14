@@ -21,7 +21,7 @@ namespace FocalPoint.Lync2013Plugin
                     {
                         _client = LyncClient.GetClient();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         throw new PluginException("Failed to connect to Lync. Please ensure your Lync app is running and signed in.");
                     }
@@ -75,13 +75,13 @@ namespace FocalPoint.Lync2013Plugin
                     PublicationCallback,
                     publishAsyncState);
             }
-            catch (COMException ce)
+            catch (COMException)
             {
                 _client = null;
 
                 throw new PluginException("Failed to update Lync status. Will try again later.");
             }
-            catch (ArgumentException ae)
+            catch (ArgumentException)
             {
                 //MessageBox.Show("publish Argument exception: " + ae.Message);
             }

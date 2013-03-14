@@ -141,7 +141,7 @@ namespace FocalPoint
                 {
                     this.ErrorMessage = new Error { Title = p.Name, Message = ex.Message };
                 }
-                catch (NotImplementedException ex) { }
+                catch (NotImplementedException) { }
                 catch (Exception)
                 {
                     this.ErrorMessage = new Error { Title = p.Name, Message = "An unknown error has occurred with plugin." };
@@ -161,7 +161,7 @@ namespace FocalPoint
                 {
                     this.ErrorMessage = new Error { Title = p.Name, Message = ex.Message };
                 }
-                catch (NotImplementedException ex) { }
+                catch (NotImplementedException) { }
                 catch (Exception)
                 {
                     this.ErrorMessage = new Error { Title = p.Name, Message = "An unknown error has occurred with plugin." };
@@ -181,7 +181,7 @@ namespace FocalPoint
                 {
                     this.ErrorMessage = new Error { Title = p.Name, Message = ex.Message };
                 }
-                catch (NotImplementedException ex) { }
+                catch (NotImplementedException) { }
                 catch (Exception)
                 {
                     this.ErrorMessage = new Error { Title = p.Name, Message = "An unknown error has occurred with plugin." };

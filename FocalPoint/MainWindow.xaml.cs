@@ -44,6 +44,19 @@ namespace FocalPoint
             this.Bind(ViewModel, vm => vm.Running, form => form.Duration.IsReadOnly);
 
             ViewModel.ObservableForProperty(new [] {"ErrorMessage"}).Subscribe(NotifyErrors);
+            ViewModel.ObservableForProperty(new[] {"Running"}).Subscribe(change =>
+                {
+                    var running = (bool) change.Value;
+
+                    if (this.Visibility == Visibility.Hidden)
+                    {
+                        taskBarIcon.ShowBalloonTip(
+                            2000,
+                            "Pomodoro Complete",
+                            "Good work!", 
+                            ToolTipIcon.Info);
+                    }
+                });
 
             InitializeComponent();
 
@@ -62,9 +75,11 @@ namespace FocalPoint
 
             if (error != null)
             {
-                taskBarIcon.BalloonTipTitle = error.Title;
-                taskBarIcon.BalloonTipText = error.Message;
-                taskBarIcon.ShowBalloonTip(5000);
+                taskBarIcon.ShowBalloonTip(
+                    5000,
+                    error.Title,
+                    error.Message,
+                    ToolTipIcon.Error);
             }
         }
 

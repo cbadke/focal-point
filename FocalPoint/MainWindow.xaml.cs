@@ -1,21 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using FocalPoint.Lync2013Plugin;
-using FocalPoint.SDK;
 using ReactiveUI;
 using ReactiveUI.Xaml;
 
@@ -24,13 +11,16 @@ namespace FocalPoint
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IViewFor<SessionViewModel>
+    public partial class MainWindow : IViewFor<SessionViewModel>
     {
-        readonly System.Windows.Forms.NotifyIcon taskBarIcon ;
+        readonly NotifyIcon taskBarIcon ;
 
         public MainWindow()
         {
-            ViewModel = new SessionViewModel(new List<ISessionWatcher>{new LyncStatusUpdater()});
+            var pluginManager = new PluginManager();
+            
+            ViewModel = new SessionViewModel(pluginManager.Subscribers);
+
             InitializeComponent();
 
             this.BindCommand(ViewModel, vm => vm.StartSession);
@@ -48,7 +38,7 @@ namespace FocalPoint
                 {
                     var running = (bool) change.Value;
 
-                    if (this.Visibility == Visibility.Hidden)
+                    if (!running && Visibility == Visibility.Hidden)
                     {
                         taskBarIcon.ShowBalloonTip(
                             2000,
@@ -60,7 +50,7 @@ namespace FocalPoint
 
             InitializeComponent();
 
-            taskBarIcon = new System.Windows.Forms.NotifyIcon
+            taskBarIcon = new NotifyIcon
                 {
                     Icon = System.Drawing.Icon.ExtractAssociatedIcon(Assembly.GetEntryAssembly().Location),
                     Visible = true,
@@ -101,12 +91,12 @@ namespace FocalPoint
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
+                DragMove();
         }
 
         private void Hide_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
 
             taskBarIcon.ContextMenu.MenuItems["Show"].Visible = true;
             taskBarIcon.ContextMenu.MenuItems["Hide"].Visible = false;
@@ -114,7 +104,7 @@ namespace FocalPoint
 
         private void Show_Click(object sender, EventArgs e)
         {
-            this.Show();
+            Show();
 
             taskBarIcon.ContextMenu.MenuItems["Show"].Visible = false;
             taskBarIcon.ContextMenu.MenuItems["Hide"].Visible = true;
@@ -124,23 +114,23 @@ namespace FocalPoint
         {
             ViewModel.EndSession.Execute(null);
             taskBarIcon.Visible = false;
-            this.Close();
+            Close();
         }
 
-        private System.Windows.Forms.ContextMenu CreateTaskBarContextMenu()
+        private ContextMenu CreateTaskBarContextMenu()
         {
-            var context = new System.Windows.Forms.ContextMenu();
+            var context = new ContextMenu();
 
-            var openMenuItem = new System.Windows.Forms.MenuItem {Index = 0, Text = "Show", Name = "Show"};
+            var openMenuItem = new MenuItem {Index = 0, Text = "Show", Name = "Show"};
             openMenuItem.Click += Show_Click;
             openMenuItem.Visible = false;
 
-            var hideMenuItem = new System.Windows.Forms.MenuItem {Index = 1, Text = "Hide", Name = "Hide"};
+            var hideMenuItem = new MenuItem {Index = 1, Text = "Hide", Name = "Hide"};
             hideMenuItem.Click += Hide_Click;
 
-            var separator = new System.Windows.Forms.MenuItem {Index = 2, Text = "-"};
+            var separator = new MenuItem {Index = 2, Text = "-"};
 
-            var exitMenuItem = new System.Windows.Forms.MenuItem {Index = 3, Text = "Exit", Name = "Exit"};
+            var exitMenuItem = new MenuItem {Index = 3, Text = "Exit", Name = "Exit"};
             exitMenuItem.Click += Exit_Click;
 
             context.MenuItems.AddRange(new [] {openMenuItem, hideMenuItem, separator,exitMenuItem});

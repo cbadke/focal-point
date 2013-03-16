@@ -6,7 +6,7 @@ using Microsoft.Lync.Model;
 
 namespace FocalPoint.Lync2013Plugin
 {
-    public class LyncStatusUpdater : ISessionWatcher
+    internal class LyncStatusUpdater : ISessionWatcher
     {
         private int _minutesRemaining = Int32.MinValue;
 

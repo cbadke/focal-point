@@ -1,10 +1,11 @@
+set cursorcolumn
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint", "FocalPoint\FocalPoint.csproj", "{5E4EBACD-299C-4231-8E81-27BB38E7DE94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint.Tests", "FocalPoint.Tests\FocalPoint.Tests.csproj", "{3F60C897-8C8B-4506-B5F3-5C6E90E73EC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint.Lync2013Plugin", "Lync2013Plugin\FocalPoint.Lync2013Plugin\FocalPoint.Lync2013Plugin.csproj", "{FE8361AD-9CD8-48C3-BCAA-970C510A66C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint.Lync2013Plugin", "Plugins\FocalPoint.Lync2013Plugin\FocalPoint.Lync2013Plugin.csproj", "{FE8361AD-9CD8-48C3-BCAA-970C510A66C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint.SDK", "FocalPoint.SDK\FocalPoint.SDK.csproj", "{FA253458-6CA2-46DE-B0D9-04C262804850}"
 EndProject
@@ -19,7 +20,7 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "MSI", "MSI\MSI.wixproj", "{
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{F4DC9ECA-0176-4E01-816E-2CA336461B2F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lync2013Plugin", "Lync2013Plugin", "{07F03EE7-1FFA-423F-964E-D6164F121319}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{07F03EE7-1FFA-423F-964E-D6164F121319}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

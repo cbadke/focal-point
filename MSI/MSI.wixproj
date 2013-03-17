@@ -84,7 +84,7 @@
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>APPINSTALLDIR</RefTargetDir>
+      <RefTargetDir>PLUGININSTALLDIR</RefTargetDir>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

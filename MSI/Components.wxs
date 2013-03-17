@@ -18,7 +18,7 @@
 	<Fragment>
 		<ComponentGroup Id="Application" Directory="APPINSTALLDIR">
 			<Component Id="ApplicationComponent" Guid="BDFB5B75-78FB-4F48-903C-6841F1B71189" KeyPath="yes">
-        <File Source="..\FocalPoint\bin\Release\FocalPoint.exe" Id="FocalPoint.exe"/>
+	<File Source="..\FocalPoint\bin\Release\FocalPoint.exe" Id="FocalPoint.exe"/>
         <File Source="..\FocalPoint\bin\Release\FocalPoint.exe.config" Id="FocalPoint.exe.config"/>
         
         <RemoveFolder Id="APPINSTALLDIR" On="uninstall"/>
@@ -56,9 +56,9 @@
 	</Fragment>
   
 	<Fragment>
-		<ComponentGroup Id="SDK" Directory="APPINSTALLDIR">
+		<ComponentGroup Id="SDK" Directory="PLUGININSTALLDIR">
 			<Component Id="SDKComponent" Guid="99E0AC63-E9E9-4A28-8E46-38B1A6FEF2DB" KeyPath="yes">
-        <File Source="..\Lync2013Plugin\FocalPoint.Lync2013Plugin\bin\Release\FocalPoint.Lync2013Plugin.dll" Id="FocalPoint.Lync2013Plugin.dll"/>
+        <File Source="..\Plugins\FocalPoint.Lync2013Plugin\bin\Release\FocalPoint.Lync2013Plugin.dll" Id="FocalPoint.Lync2013Plugin.dll"/>
 			</Component>
 		</ComponentGroup>
 	</Fragment>

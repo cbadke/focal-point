@@ -9,25 +9,27 @@
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFiles64Folder">
 				<Directory Id="APPINSTALLDIR" Name="FocalPoint">
-				  <Directory Id="PLUGININSTALLDIR" Name="Plugins" />
-         </Directory>
-       </Directory>
-       <Directory Id="ProgramMenuFolder">
-         <Directory Id="ApplicationProgramsFolder" Name="FocalPoint"/>
-       </Directory> 
+					<Directory Id="PLUGININSTALLDIR" Name="Plugins" />
+				</Directory>
+			</Directory>
+			<Directory Id="ProgramMenuFolder">
+				<Directory Id="ApplicationProgramsFolder" Name="FocalPoint"/>
+			</Directory>
 		</Directory>
-    
-		<Feature Id="ProductFeature" Title="Installer" Level="1">
-        <ComponentGroupRef Id="Dependencies"/>
-        <ComponentGroupRef Id="SDK"/>
-        <ComponentGroupRef Id="LyncPlugin"/>
-        <ComponentGroupRef Id="Application"/>
-    		<ComponentRef Id="FocalPoint.Shortcut" />
+	
+		<Feature Id="ProductFeature" Title="Installer" Level="1" Absent="disallow">
+			<ComponentGroupRef Id="Dependencies"/>
+			<ComponentGroupRef Id="SDK"/>
+			<ComponentGroupRef Id="Application"/>
+			<ComponentRef Id="FocalPoint.Shortcut" />
 		</Feature>
-  
-    <PropertyRef Id="NETFRAMEWORK45"/>
-    <Condition Message="This application requires .NET Framework 4.5. Please install the .NET Framework then run this installer again.">
-      <![CDATA[Installed OR NETFRAMEWORK45]]>
-    </Condition>
+		<Feature Id="Plugin1" Title="Lync 2013 Support" Level="1" Absent="allow">
+			<ComponentGroupRef Id="LyncPlugin"/>
+		</Feature>
+
+		<PropertyRef Id="NETFRAMEWORK45"/>
+		<Condition Message="This application requires .NET Framework 4.5. Please install the .NET Framework then run this installer again.">
+			<![CDATA[Installed OR NETFRAMEWORK45]]>
+		</Condition>
 	</Product>
 </Wix>

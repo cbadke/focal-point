@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Fragment>
-    <DirectoryRef Id="ApplicationProgramsFolder">
-      <Component Id="FocalPoint.Shortcut" Guid="83C72786-2903-4A50-9F2D-60B88011D0D9">
-        <Shortcut Id="ApplicationShortcut"
-                   Name="FocalPoint"
-                   Description="Pluggable task focus timer"
-                   Target="[APPINSTALLDIR]FocalPoint.exe"
-                   WorkingDirectory="APPINSTALLDIR"
-                  />
-        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
-        <RegistryValue Root="HKCU" Key="Software\FocalPoint\FocalPoint" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
+	<DirectoryRef Id="ApplicationProgramsFolder">
+		<Component Id="FocalPoint.Shortcut" Guid="83C72786-2903-4A50-9F2D-60B88011D0D9">
+			<Shortcut Id="ApplicationShortcut"
+					   Name="FocalPoint"
+					   Description="Pluggable task focus timer"
+					   Target="[APPINSTALLDIR]FocalPoint.exe"
+					   WorkingDirectory="APPINSTALLDIR"
+					  />
+			<RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
+			<RegistryValue Root="HKCU" Key="Software\FocalPoint\FocalPoint" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+		</Component>
+	</DirectoryRef>
 	</Fragment>
 
 	<Fragment>
 		<ComponentGroup Id="Application" Directory="APPINSTALLDIR">
 			<Component Id="ApplicationComponent" Guid="BDFB5B75-78FB-4F48-903C-6841F1B71189" KeyPath="yes">
-	<File Source="..\FocalPoint\bin\Release\FocalPoint.exe" Id="FocalPoint.exe"/>
-        <File Source="..\FocalPoint\bin\Release\FocalPoint.exe.config" Id="FocalPoint.exe.config"/>
-        
-        <RemoveFolder Id="APPINSTALLDIR" On="uninstall"/>
+				<File Source="..\FocalPoint\bin\Release\FocalPoint.exe" Id="FocalPoint.exe"/>
+				<File Source="..\FocalPoint\bin\Release\FocalPoint.exe.config" Id="FocalPoint.exe.config"/>
+		
+				<RemoveFolder Id="APPINSTALLDIR" On="uninstall"/>
 			</Component>
 		</ComponentGroup>
 	</Fragment>
@@ -29,36 +29,36 @@
 	<Fragment>
 		<ComponentGroup Id="Dependencies" Directory="APPINSTALLDIR">
 			<Component Id="DependencyComponent" Guid="4DCA5B1C-C8E5-4DD0-95BA-49A7DDCA493B" KeyPath="yes">
-        <File Source="..\FocalPoint\bin\Release\Microsoft.Threading.Tasks.dll" Id="Microsoft.Threading.Tasks.dll"/>
-        <File Source="..\FocalPoint\bin\Release\NLog.dll" Id="NLog.dll"/>
-        <File Source="..\FocalPoint\bin\Release\ReactiveUI.Blend_Net45.dll" Id="ReactiveUI.Blend_Net45.dll"/>
-        <File Source="..\FocalPoint\bin\Release\ReactiveUI.NLog_Net45.dll" Id="ReactiveUI.NLog_Net45.dll"/>
-        <File Source="..\FocalPoint\bin\Release\ReactiveUI.Routing_Net45.dll" Id="ReactiveUI.Routing_Net45.dll"/>
-        <File Source="..\FocalPoint\bin\Release\ReactiveUI.Xaml_Net45.dll" Id="ReactiveUI.Xaml_Net45.dll"/>
-        <File Source="..\FocalPoint\bin\Release\ReactiveUI_Net45.dll" Id="ReactiveUI_Net45.dll"/>
-        <File Source="..\FocalPoint\bin\Release\System.Reactive.Core.dll" Id="System.Reactive.Core.dll"/>
-        <File Source="..\FocalPoint\bin\Release\System.Reactive.Interfaces.dll" Id="System.Reactive.Interfaces.dll"/>
-        <File Source="..\FocalPoint\bin\Release\System.Reactive.Linq.dll" Id="System.Reactive.Linq.dll"/>
-        <File Source="..\FocalPoint\bin\Release\System.Reactive.PlatformServices.dll" Id="System.Reactive.PlatformServices.dll"/>
-        <File Source="..\FocalPoint\bin\Release\System.Reactive.Windows.Threading.dll" Id="System.Reactive.Windows.Threading.dll"/>
-        <File Source="..\FocalPoint\bin\Release\Xceed.Wpf.DataGrid.dll" Id="Xceed.Wpf.DataGrid.dll"/>
-        <File Source="..\FocalPoint\bin\Release\Xceed.Wpf.Toolkit.dll" Id="Xceed.Wpf.Toolkit.dll"/>
+				<File Source="..\FocalPoint\bin\Release\Microsoft.Threading.Tasks.dll" Id="Microsoft.Threading.Tasks.dll"/>
+				<File Source="..\FocalPoint\bin\Release\NLog.dll" Id="NLog.dll"/>
+				<File Source="..\FocalPoint\bin\Release\ReactiveUI.Blend_Net45.dll" Id="ReactiveUI.Blend_Net45.dll"/>
+				<File Source="..\FocalPoint\bin\Release\ReactiveUI.NLog_Net45.dll" Id="ReactiveUI.NLog_Net45.dll"/>
+				<File Source="..\FocalPoint\bin\Release\ReactiveUI.Routing_Net45.dll" Id="ReactiveUI.Routing_Net45.dll"/>
+				<File Source="..\FocalPoint\bin\Release\ReactiveUI.Xaml_Net45.dll" Id="ReactiveUI.Xaml_Net45.dll"/>
+				<File Source="..\FocalPoint\bin\Release\ReactiveUI_Net45.dll" Id="ReactiveUI_Net45.dll"/>
+				<File Source="..\FocalPoint\bin\Release\System.Reactive.Core.dll" Id="System.Reactive.Core.dll"/>
+				<File Source="..\FocalPoint\bin\Release\System.Reactive.Interfaces.dll" Id="System.Reactive.Interfaces.dll"/>
+				<File Source="..\FocalPoint\bin\Release\System.Reactive.Linq.dll" Id="System.Reactive.Linq.dll"/>
+				<File Source="..\FocalPoint\bin\Release\System.Reactive.PlatformServices.dll" Id="System.Reactive.PlatformServices.dll"/>
+				<File Source="..\FocalPoint\bin\Release\System.Reactive.Windows.Threading.dll" Id="System.Reactive.Windows.Threading.dll"/>
+				<File Source="..\FocalPoint\bin\Release\Xceed.Wpf.DataGrid.dll" Id="Xceed.Wpf.DataGrid.dll"/>
+				<File Source="..\FocalPoint\bin\Release\Xceed.Wpf.Toolkit.dll" Id="Xceed.Wpf.Toolkit.dll"/>
 			</Component>
 		</ComponentGroup>
 	</Fragment>
   
 	<Fragment>
-		<ComponentGroup Id="LyncPlugin" Directory="APPINSTALLDIR">
-			<Component Id="LyncPluginComponent" Guid="876E8E97-470E-4926-A999-75C10D94C8CF" KeyPath="yes">
-        <File Source="..\FocalPoint\bin\Release\FocalPoint.SDK.dll" Id="FocalPoint.SDK.dll"/>
-			</Component>
-		</ComponentGroup>
-	</Fragment>
-  
-	<Fragment>
-		<ComponentGroup Id="SDK" Directory="PLUGININSTALLDIR">
+		<ComponentGroup Id="SDK" Directory="APPINSTALLDIR">
 			<Component Id="SDKComponent" Guid="99E0AC63-E9E9-4A28-8E46-38B1A6FEF2DB" KeyPath="yes">
-        <File Source="..\Plugins\FocalPoint.Lync2013Plugin\bin\Release\FocalPoint.Lync2013Plugin.dll" Id="FocalPoint.Lync2013Plugin.dll"/>
+				<File Source="..\FocalPoint.SDK\bin\Release\FocalPoint.SDK.dll" Id="FocalPoint.SDK.dll"/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+  
+	<Fragment>
+		<ComponentGroup Id="LyncPlugin" Directory="PLUGININSTALLDIR">
+			<Component Id="LyncPluginComponent" Guid="876E8E97-470E-4926-A999-75C10D94C8CF" KeyPath="yes">
+				<File Source="..\Plugins\FocalPoint.Lync2013Plugin\bin\Release\FocalPoint.Lync2013Plugin.dll" Id="FocalPoint.Lync2013Plugin.dll"/>
 			</Component>
 		</ComponentGroup>
 	</Fragment>

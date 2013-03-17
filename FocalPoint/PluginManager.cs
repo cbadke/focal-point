@@ -18,7 +18,10 @@ namespace FocalPoint
 
             var pluginDirectory = GetPluginDirectory();
 
-            Directory.GetFiles(pluginDirectory, "*.dll").ToList().ForEach(RegisterPlugin);
+            if (Directory.Exists(pluginDirectory))
+            {
+                Directory.GetFiles(pluginDirectory, "*.dll").ToList().ForEach(RegisterPlugin);
+            }
         }
 
         private static string GetPluginDirectory()

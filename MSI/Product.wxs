@@ -17,12 +17,13 @@
 			</Directory>
 		</Directory>
 	
-		<Feature Id="ProductFeature" Title="Installer" Level="1" Absent="disallow">
+		<Feature Id="ProductFeature" Title="FocalPoint" Level="1" Absent="disallow" Display="hidden">
 			<ComponentGroupRef Id="Dependencies"/>
 			<ComponentGroupRef Id="SDK"/>
 			<ComponentGroupRef Id="Application"/>
 			<ComponentRef Id="FocalPoint.Shortcut" />
 		</Feature>
+
 		<Feature Id="Plugin1" Title="Lync 2013 Support" Level="1" Absent="allow">
 			<ComponentGroupRef Id="LyncPlugin"/>
 		</Feature>
@@ -31,5 +32,6 @@
 		<Condition Message="This application requires .NET Framework 4.5. Please install the .NET Framework then run this installer again.">
 			<![CDATA[Installed OR NETFRAMEWORK45]]>
 		</Condition>
+		<UIRef Id="WixUI_FeatureTree"/>	
 	</Product>
 </Wix>

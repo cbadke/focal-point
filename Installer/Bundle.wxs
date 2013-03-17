@@ -4,8 +4,8 @@
 		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
 
 		<Chain>
-      <MsiPackage SourceFile="..\Plugins\Redistributables\lyncRuntime.msi" Permanent="yes"/>
-      <MsiPackage SourceFile="..\MSI\bin\x64\Release\FocalPoint.msi" />
+			<MsiPackage SourceFile="..\Plugins\Redistributables\lyncRuntime.msi" Permanent="yes"/>
+			<MsiPackage SourceFile="..\MSI\bin\x64\Release\FocalPoint.msi" />
 		</Chain>
 	</Bundle>
 </Wix>

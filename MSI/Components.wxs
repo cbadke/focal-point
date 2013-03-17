@@ -25,7 +25,7 @@
 			</Component>
 		</ComponentGroup>
 	</Fragment>
-  
+
 	<Fragment>
 		<ComponentGroup Id="Dependencies" Directory="APPINSTALLDIR">
 			<Component Id="DependencyComponent" Guid="4DCA5B1C-C8E5-4DD0-95BA-49A7DDCA493B" KeyPath="yes">
@@ -46,7 +46,7 @@
 			</Component>
 		</ComponentGroup>
 	</Fragment>
-  
+
 	<Fragment>
 		<ComponentGroup Id="SDK" Directory="APPINSTALLDIR">
 			<Component Id="SDKComponent" Guid="99E0AC63-E9E9-4A28-8E46-38B1A6FEF2DB" KeyPath="yes">
@@ -54,7 +54,7 @@
 			</Component>
 		</ComponentGroup>
 	</Fragment>
-  
+
 	<Fragment>
 		<ComponentGroup Id="LyncPlugin" Directory="PLUGININSTALLDIR">
 			<Component Id="LyncPluginComponent" Guid="876E8E97-470E-4926-A999-75C10D94C8CF" KeyPath="yes">

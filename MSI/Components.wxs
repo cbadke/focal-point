@@ -54,12 +54,4 @@
 			</Component>
 		</ComponentGroup>
 	</Fragment>
-
-	<Fragment>
-		<ComponentGroup Id="LyncPlugin" Directory="PLUGININSTALLDIR">
-			<Component Id="LyncPluginComponent" Guid="876E8E97-470E-4926-A999-75C10D94C8CF" KeyPath="yes">
-				<File Source="..\Plugins\FocalPoint.Lync2013Plugin\bin\Release\FocalPoint.Lync2013Plugin.dll" Id="FocalPoint.Lync2013Plugin.dll"/>
-			</Component>
-		</ComponentGroup>
-	</Fragment>
 </Wix>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
-	<Product Id="*" Name="FocalPoint" Language="1033" Version="0.0.0.0" Manufacturer="FocalPoint" UpgradeCode="2A4F7735-5579-4126-ABA3-D8BBDD27D015">
+	<Product Id="*" Name="FocalPoint" Language="1033" Version="0.0.0.0" Manufacturer="Curtis Badke" UpgradeCode="2A4F7735-5579-4126-ABA3-D8BBDD27D015">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -17,21 +17,16 @@
 			</Directory>
 		</Directory>
 	
-		<Feature Id="ProductFeature" Title="FocalPoint" Level="1" Absent="disallow" Display="hidden">
+		<Feature Id="ProductFeature" Title="FocalPoint" Level="1">
 			<ComponentGroupRef Id="Dependencies"/>
 			<ComponentGroupRef Id="SDK"/>
 			<ComponentGroupRef Id="Application"/>
 			<ComponentRef Id="FocalPoint.Shortcut" />
 		</Feature>
 
-		<Feature Id="Plugin1" Title="Lync 2013 Support" Level="1" Absent="allow">
-			<ComponentGroupRef Id="LyncPlugin"/>
-		</Feature>
-
 		<PropertyRef Id="NETFRAMEWORK45"/>
 		<Condition Message="This application requires .NET Framework 4.5. Please install the .NET Framework then run this installer again.">
 			<![CDATA[Installed OR NETFRAMEWORK45]]>
 		</Condition>
-		<UIRef Id="WixUI_FeatureTree"/>	
 	</Product>
 </Wix>

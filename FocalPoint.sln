@@ -1,4 +1,3 @@
-set cursorcolumn
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FocalPoint", "FocalPoint\FocalPoint.csproj", "{5E4EBACD-299C-4231-8E81-27BB38E7DE94}"
@@ -21,6 +20,8 @@ EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Installer.wixproj", "{F4DC9ECA-0176-4E01-816E-2CA336461B2F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{07F03EE7-1FFA-423F-964E-D6164F121319}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Lync2013PluginMSI", "Plugins\FocalPoint.Lync2013PluginMSI\Lync2013PluginMSI.wixproj", "{53ACE316-5C40-4996-934B-087B8CA08B5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,11 +51,15 @@ Global
 		{F4DC9ECA-0176-4E01-816E-2CA336461B2F}.Debug|x64.ActiveCfg = Debug|x64
 		{F4DC9ECA-0176-4E01-816E-2CA336461B2F}.Release|x64.ActiveCfg = Release|x64
 		{F4DC9ECA-0176-4E01-816E-2CA336461B2F}.Release|x64.Build.0 = Release|x64
+		{53ACE316-5C40-4996-934B-087B8CA08B5B}.Debug|x64.ActiveCfg = Debug|x86
+		{53ACE316-5C40-4996-934B-087B8CA08B5B}.Release|x64.ActiveCfg = Release|x64
+		{53ACE316-5C40-4996-934B-087B8CA08B5B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{FE8361AD-9CD8-48C3-BCAA-970C510A66C2} = {07F03EE7-1FFA-423F-964E-D6164F121319}
+		{53ACE316-5C40-4996-934B-087B8CA08B5B} = {07F03EE7-1FFA-423F-964E-D6164F121319}
 	EndGlobalSection
 EndGlobal

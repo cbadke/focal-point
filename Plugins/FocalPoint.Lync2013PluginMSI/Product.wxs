@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="FocalPoint.Lync2013Plugin" Language="1033" Version="0.0.0.0" Manufacturer="Curtis Badke" UpgradeCode="7C46CDE8-7CEA-4C77-8B6C-441BC6B2DA1A">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="APPINSTALLDIR" Name="FocalPoint">
+					<Directory Id="PLUGININSTALLDIR" Name="Plugins" />
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id="Plugin1" Title="Lync 2013 Support" Level="1">
+			<ComponentGroupRef Id="LyncPlugin"/>
+		</Feature>
+
+	</Product>
+
+	<Fragment>
+		<ComponentGroup Id="LyncPlugin" Directory="PLUGININSTALLDIR">
+			<Component Id="LyncPluginComponent" Guid="876E8E97-470E-4926-A999-75C10D94C8CF" KeyPath="yes">
+				<File Source="..\FocalPoint.Lync2013Plugin\bin\Release\FocalPoint.Lync2013Plugin.dll" Id="FocalPoint.Lync2013Plugin.dll"/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

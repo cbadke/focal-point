@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
 	<Bundle Name="FocalPoint" Version="0.0.0.0" Manufacturer="FocalPoint" UpgradeCode="F4DC9ECA-0176-4E01-816E-2CA336461B2F">
-		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+		<BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+			<bal:WixStandardBootstrapperApplication
+				LicenseFile="License.rtf"
+				LogoFile="..\FocalPoint\Images\logo.png"
+			/>	
+		</BootstrapperApplicationRef>
 
 		<Chain>
-			<MsiPackage SourceFile="..\Plugins\Redistributables\lyncRuntime.msi" Permanent="yes"/>
-			<MsiPackage SourceFile="..\MSI\bin\x64\Release\FocalPoint.msi" />
+			<MsiPackage SourceFile="..\MSI\bin\x64\Release\FocalPoint.msi" EnableFeatureSelection="no"/>
+
+			<MsiPackage SourceFile="..\Plugins\Redistributables\lyncRuntime.msi" Permanent="yes" Visible="yes" EnableFeatureSelection="no"/>
+			<MsiPackage SourceFile="..\Plugins\FocalPoint.Lync2013PluginMSI\bin\x64\Release\Lync2013Plugin.msi" Visible="yes" EnableFeatureSelection="no"/>
 		</Chain>
 	</Bundle>
 </Wix>

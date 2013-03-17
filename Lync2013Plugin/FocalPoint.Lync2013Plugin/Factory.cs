@@ -9,17 +9,9 @@ namespace FocalPoint.Lync2013Plugin
 {
     public class Factory : IFactory
     {
-        private IPlugin _plugin = null;
-        public IPlugin Plugin
+        public IPlugin Create()
         {
-            get
-            {
-                if (_plugin == null)
-                {
-                    _plugin = new Plugin();
-                }
-                return _plugin;
-            }
+            return new Plugin();
         }
     }
 }

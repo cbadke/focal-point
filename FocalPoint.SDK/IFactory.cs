@@ -8,6 +8,6 @@ namespace FocalPoint.SDK
 {
     public interface IFactory
     {
-        IPlugin Plugin { get; }
+        IPlugin Create();
     }
 }

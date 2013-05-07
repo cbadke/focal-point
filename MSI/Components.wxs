@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Fragment>
 	<DirectoryRef Id="ApplicationProgramsFolder">
-		<Component Id="FocalPoint.Shortcut" Guid="83C72786-2903-4A50-9F2D-60B88011D0D9">
+		<Component Id="FocalPoint.Shortcut" Guid="49D15F17-E2AD-4006-8C78-042F838BB483">
 			<Shortcut Id="ApplicationShortcut"
 					   Name="FocalPoint"
 					   Description="Pluggable task focus timer"
@@ -17,7 +17,7 @@
 
 	<Fragment>
 		<ComponentGroup Id="Application" Directory="APPINSTALLDIR">
-			<Component Id="ApplicationComponent" Guid="BDFB5B75-78FB-4F48-903C-6841F1B71189" KeyPath="yes">
+			<Component Id="ApplicationComponent" Guid="8E07322B-FE84-4C7D-961C-A9FB9B7278AF" KeyPath="yes">
 				<File Source="..\FocalPoint\bin\Release\FocalPoint.exe" Id="FocalPoint.exe"/>
 				<File Source="..\FocalPoint\bin\Release\FocalPoint.exe.config" Id="FocalPoint.exe.config"/>
 		
@@ -28,7 +28,7 @@
 
 	<Fragment>
 		<ComponentGroup Id="Dependencies" Directory="APPINSTALLDIR">
-			<Component Id="DependencyComponent" Guid="4DCA5B1C-C8E5-4DD0-95BA-49A7DDCA493B" KeyPath="yes">
+			<Component Id="DependencyComponent" Guid="09345474-A009-4E35-A4B0-20537F7828E7" KeyPath="yes">
 				<File Source="..\FocalPoint\bin\Release\Microsoft.Threading.Tasks.dll" Id="Microsoft.Threading.Tasks.dll"/>
 				<File Source="..\FocalPoint\bin\Release\NLog.dll" Id="NLog.dll"/>
 				<File Source="..\FocalPoint\bin\Release\ReactiveUI.Blend_Net45.dll" Id="ReactiveUI.Blend_Net45.dll"/>
@@ -49,7 +49,7 @@
 
 	<Fragment>
 		<ComponentGroup Id="SDK" Directory="APPINSTALLDIR">
-			<Component Id="SDKComponent" Guid="99E0AC63-E9E9-4A28-8E46-38B1A6FEF2DB" KeyPath="yes">
+			<Component Id="SDKComponent" Guid="AA3EF4E2-D031-4D05-A6D9-05C5D5B7A032" KeyPath="yes">
 				<File Source="..\FocalPoint.SDK\bin\Release\FocalPoint.SDK.dll" Id="FocalPoint.SDK.dll"/>
 			</Component>
 		</ComponentGroup>
